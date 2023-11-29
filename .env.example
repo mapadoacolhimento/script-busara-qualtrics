@@ -1,0 +1,3 @@
+SECRET_KEY=secretKey
+SECRET_IV=secretIV
+ECNRYPTION_METHOD=aes-256-cbc

@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const bundleOutputDir = './dist';
+const Dotenv = require('dotenv-webpack');
 
 module.exports = (env) => {
 	const isDevBuild = !(env && env.prod);
@@ -14,17 +15,11 @@ module.exports = (env) => {
 		devServer: {
 			contentBase: bundleOutputDir
 		},
-		plugins: isDevBuild
-			? [new webpack.SourceMapDevToolPlugin(), new CopyWebpackPlugin({
+		plugins: [new CopyWebpackPlugin({
 				patterns: [
 					{ from: './_headers' }, // you may need to change `to` here.
 				],
-			})]
-			: [new CopyWebpackPlugin({
-				patterns: [
-					{ from: './_headers' }, // you may need to change `to` here.
-				],
-			})],
+		}), new Dotenv()],
 		optimization: {
 			minimize: !isDevBuild
 		},
