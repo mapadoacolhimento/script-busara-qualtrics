@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const bundleOutputDir = './dist';
 
 module.exports = (env) => {
@@ -14,8 +15,16 @@ module.exports = (env) => {
 			contentBase: bundleOutputDir
 		},
 		plugins: isDevBuild
-			? [new webpack.SourceMapDevToolPlugin()]
-			: [],
+			? [new webpack.SourceMapDevToolPlugin(), new CopyWebpackPlugin({
+				patterns: [
+					{ from: './_headers' }, // you may need to change `to` here.
+				],
+			})]
+			: [new CopyWebpackPlugin({
+				patterns: [
+					{ from: './_headers' }, // you may need to change `to` here.
+				],
+			})],
 		optimization: {
 			minimize: !isDevBuild
 		},
