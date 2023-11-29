@@ -24,5 +24,6 @@ module.exports = (env) => {
 			minimize: !isDevBuild
 		},
 		mode: isDevBuild ? 'development' : 'production',
+		externalsPresets: { node: true }
 	}];
 };

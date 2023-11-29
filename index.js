@@ -1,6 +1,6 @@
-import crypto from 'crypto'
+const crypto = require('crypto')
 
-const encryptionMethod = process.env.ECNRYPTION_METHOD
+const encryptionMethod = process.env.ENCRYPTION_METHOD
 const key = crypto
 	.createHash('sha512')
 	.update(secret_key)
