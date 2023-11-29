@@ -1,5 +1,5 @@
 function main() {
-	console.log("Hello from script!")
+	console.log("Hello from widget!")
 }
 
 main()
