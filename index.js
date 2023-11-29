@@ -1,14 +1,16 @@
 const crypto = require('crypto')
 
 const encryptionMethod = process.env.ENCRYPTION_METHOD
+const secretKey = process.env.SECRET_KEY
+const secretIv = process.env.SECRET_IV
 const key = crypto
 	.createHash('sha512')
-	.update(secret_key)
+	.update(secretKey)
 	.digest('hex')
 	.substring(0, 32)
 const encryptionIV = crypto
 	.createHash('sha512')
-	.update(secret_iv)
+	.update(secretIv)
 	.digest('hex')
 	.substring(0, 16)
 
