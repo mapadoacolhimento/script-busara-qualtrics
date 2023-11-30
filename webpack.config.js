@@ -49,6 +49,6 @@ module.exports = (env) => {
 				}
 			]
 		},
-		externals: [nodeExternals()],
+		externals: [nodeExternals({ importType: 'umd' })],
 	}];
 };
