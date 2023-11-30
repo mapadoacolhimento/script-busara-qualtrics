@@ -27,13 +27,6 @@ module.exports = (env) => {
 		mode: isDevBuild ? 'development' : 'production',
 		resolve: {
 			extensions: [".*", ".js"],
-			fallback: {
-				// Use can only include required modules. Also install the package.
-				// for example: npm install --save-dev assert
-				crypto: require.resolve('crypto-browserify'),
-				buffer: require.resolve('buffer'),
-				stream: require.resolve('stream-browserify'),
-			}
 		},
 		module: {
 			rules: [
