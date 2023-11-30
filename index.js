@@ -22,8 +22,18 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	const submitBtn = form.querySelector("button");
 
+	function openSurvey() {
+		// eslint-disable-next-line no-restricted-globals
+		const check = confirm("Você aceita participar da nossa pesquisa?");
+		if (!check) return;
+		window.open(
+			`https://busara.iad1.qualtrics.com/jfe/form/SV_3ltkrtQdVfXYEt0?user_id=${window.BusaraEmailHash}`,
+			"_blank",
+		);
+	}
+
 	async function handleFormSubmit() {
-		await sleep(2000);
+		await sleep(5000);
 
 		const hasInputs = form.getElementsByTagName("input").length > 0;
 
