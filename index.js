@@ -40,6 +40,8 @@ window.addEventListener("DOMContentLoaded", () => {
 		if (thankUMsgs.length > 0) {
 			console.log(thankUMsgs.map((msg) => console.log(msg.textContent)));
 			submitBtn.removeEventListener("click", handleFormSubmit);
+			const surveyLink = process.env.SURVEY_LINK;
+			window.location.href = `${surveyLink}?user_id=${window.BusaraEmailHash}`;
 
 			return true;
 		}
