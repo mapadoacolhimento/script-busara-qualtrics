@@ -1,4 +1,4 @@
-const crypto = require('crypto')
+import crypto from 'crypto'
 
 const encryptionMethod = process.env.ENCRYPTION_METHOD
 const secretKey = process.env.SECRET_KEY
