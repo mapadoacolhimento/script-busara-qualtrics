@@ -18,13 +18,6 @@ window.addEventListener("DOMContentLoaded", () => {
 	const submitBtn = form.querySelector("button");
 
 	function handleFormSubmit() {
-		const hasInputs = form.getElementsByTagName("input").length > 0;
-
-		if (hasInputs) {
-			console.log("form ainda não submetido");
-			return false;
-		}
-
 		const allText = form.querySelectorAll("span");
 		const thankUMsgs = [...allText].filter((thankUMsg) =>
 			thankUMsg.textContent.includes("Recebemos seu pedido de ajuda"),
