@@ -1,5 +1,10 @@
 import encryptData from "./src/encrypt";
 
+const sleep = (ms) =>
+	new Promise((r) => {
+		setTimeout(r, ms);
+	});
+
 window.addEventListener("DOMContentLoaded", () => {
 	console.log("content has loaded");
 	const form = document.getElementById("widget-16850");
@@ -17,7 +22,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	const submitBtn = form.querySelector("button");
 
-	function handleFormSubmit() {
+	async function handleFormSubmit() {
+		await sleep(2000);
+
+		const hasInputs = form.getElementsByTagName("input").length > 0;
+
+		if (hasInputs) {
+			console.log("form ainda não submetido");
+			return false;
+		}
+
 		const allText = form.querySelectorAll("span");
 		const thankUMsgs = [...allText].filter((thankUMsg) =>
 			thankUMsg.textContent.includes("Recebemos seu pedido de ajuda"),
