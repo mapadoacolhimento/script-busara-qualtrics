@@ -66,7 +66,6 @@ window.addEventListener("DOMContentLoaded", function () {
 		const email = e.target.value
 		console.log("email", email)
 		const password = process.env.SECRET_KEY
-		const encryptedData = await encryptData(email, password);
-		console.log("encryptedData", encryptedData)
+		encryptData(email, password).then((eData) => console.log("encryptedData", eData))
 	})
 });
