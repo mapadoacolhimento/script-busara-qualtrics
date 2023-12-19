@@ -28,9 +28,7 @@ if (typeof window !== "undefined") {
 
 		emailInput.addEventListener("change", (e) => {
 			const email = e.target.value;
-			console.log("v2:email", email);
 			const encryptedEmail = encryptData(email, key, iv);
-			console.log("v2:encryptedEmail", encryptedEmail);
 			window.BusaraEmailHash = encryptedEmail;
 		});
 
@@ -53,14 +51,9 @@ if (typeof window !== "undefined") {
 			);
 
 			if (thankUMsgs.length > 0) {
-				console.log(
-					"v2:thank u msg",
-					thankUMsgs.map((msg) => console.log(msg.textContent)),
-				);
 				submitBtn.removeEventListener("click", handleFormSubmit);
 				const surveyLink = process.env.SURVEY_LINK;
 				const link = `${surveyLink}?user_id=${window.BusaraEmailHash}`;
-				console.log("v2:link", link);
 				window.location.href = link;
 
 				return true;
