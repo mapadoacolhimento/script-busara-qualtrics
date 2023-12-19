@@ -22,6 +22,8 @@ const iv = crypto
 	.digest("hex")
 	.substring(0, 16);
 
+console.log({ key, iv });
+
 if (typeof window !== "undefined") {
 	window.addEventListener("DOMContentLoaded", () => {
 		const form = document.getElementById("widget-16850");
@@ -40,6 +42,8 @@ if (typeof window !== "undefined") {
 
 		async function handleFormSubmit() {
 			await sleep(5000);
+
+			if (typeof window.BusaraEmailHash === "undefined") return false;
 
 			console.log("decrypted", decryptData(window.BusaraEmailHash, key, iv));
 
