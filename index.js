@@ -1,6 +1,5 @@
 import crypto from "crypto";
 import encryptData from "./src/encrypt";
-import decryptData from "./src/decrypt";
 
 const sleep = (ms) =>
 	new Promise((r) => {
@@ -22,8 +21,6 @@ const iv = crypto
 	.digest("hex")
 	.substring(0, 16);
 
-console.log({ key, iv });
-
 if (typeof window !== "undefined") {
 	window.addEventListener("DOMContentLoaded", () => {
 		const form = document.getElementById("widget-16850");
@@ -31,11 +28,9 @@ if (typeof window !== "undefined") {
 
 		emailInput.addEventListener("change", (e) => {
 			const email = e.target.value;
-			console.log("email", email);
 
 			const encryptedEmail = encryptData(email, key, iv);
 			window.BusaraEmailHash = encryptedEmail;
-			console.log("encryptedData", encryptedEmail);
 		});
 
 		const submitBtn = form.querySelector("button");
@@ -45,12 +40,9 @@ if (typeof window !== "undefined") {
 
 			if (typeof window.BusaraEmailHash === "undefined") return false;
 
-			console.log("decrypted", decryptData(window.BusaraEmailHash, key, iv));
-
 			const hasInputs = form.getElementsByTagName("input").length > 0;
 
 			if (hasInputs) {
-				console.log("form ainda não submetido");
 				return false;
 			}
 
@@ -68,15 +60,9 @@ if (typeof window !== "undefined") {
 				return true;
 			}
 
-			console.log("não encontramos a msg de agradecimento");
 			return false;
 		}
 
 		submitBtn.addEventListener("click", handleFormSubmit);
 	});
 }
-
-console.log(
-	"decrypted",
-	decryptData("MGUwNmRkZmY3NWIxNzY4OTc0ZmM5N2ViNTU3ODM5ZmM=", key, iv),
-);
