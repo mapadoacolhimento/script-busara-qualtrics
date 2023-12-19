@@ -7,7 +7,7 @@
     "dev": "webpack --config webpack.config.js --watch",
     "build": "webpack --config webpack.config.js --env=prod",
     "lint": "eslint . --fix",
-    "start": "node dist/widget.node.js"
+    "start": "npm run build && node dist/widget.node.js"
   },
   "author": "",
   "license": "ISC",
