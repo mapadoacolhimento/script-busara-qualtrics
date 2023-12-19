@@ -13,7 +13,7 @@ module.exports = (env) => {
 				{ from: "./_headers" }, // you may need to change `to` here.
 			],
 		}),
-		new Dotenv(),
+		new Dotenv({ systemvars: true }),
 	];
 	const devPlugins = [...defaultPlugins, new ESLintPlugin()];
 
