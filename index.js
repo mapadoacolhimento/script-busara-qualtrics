@@ -27,7 +27,7 @@ if (typeof window !== "undefined") {
 		const emailInput = form.querySelector("input[type=email]");
 
 		emailInput.addEventListener("change", (e) => {
-			const email = e.target.value;
+			const email = e.target.value.toLowerCase();
 			const encryptedEmail = encryptData(email, key, iv);
 			window.BusaraEmailHash = encryptedEmail;
 		});
