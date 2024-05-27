@@ -1,5 +1,7 @@
 import crypto from "crypto";
 import encryptData from "./src/encrypt";
+// import decryptData from "./src/decrypt";
+// import data from "./data.json";
 
 const sleep = (ms) =>
 	new Promise((r) => {
@@ -34,8 +36,27 @@ if (typeof window !== "undefined") {
 
 		const submitBtn = form.querySelector("button");
 
-		async function handleFormSubmit() {
-			await sleep(5000);
+		function addElement(link) {
+			// create a new div element
+			const newLink = document.createElement("a");
+
+			// and give it some content
+			const newContent = document.createTextNode(
+				"Clique aqui para acessar a pesquisa.",
+			);
+
+			// add the text node to the newly created link
+			newLink.appendChild(newContent);
+
+			newLink.setAttribute("href", link);
+
+			// add the newly created element and its content into the DOM
+			const currentSpan = document.querySelector("[data-key='399']");
+			currentSpan.insertAdjacentElement("beforebegin", newLink);
+		}
+
+		async function handleFormSubmit(event) {
+			event.preventDefault();
 
 			if (typeof window.BusaraEmailHash === "undefined") return false;
 
@@ -54,6 +75,9 @@ if (typeof window !== "undefined") {
 				submitBtn.removeEventListener("click", handleFormSubmit);
 				const surveyLink = process.env.SURVEY_LINK;
 				const link = `${surveyLink}?user_id=${window.BusaraEmailHash}`;
+
+				addElement(link);
+				await sleep(5000);
 				window.location.href = link;
 
 				return true;
@@ -65,3 +89,7 @@ if (typeof window !== "undefined") {
 		submitBtn.addEventListener("click", handleFormSubmit);
 	});
 }
+
+// const decryptedEmails = data.map((hash) => decryptData(hash, key, iv));
+
+// console.log("res:", JSON.stringify(decryptedEmails));
