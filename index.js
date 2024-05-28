@@ -27,7 +27,6 @@ if (typeof window !== "undefined") {
 	window.addEventListener("DOMContentLoaded", () => {
 		const form = document.getElementById("widget-16850");
 		const emailInput = form.querySelector("input[type=email]");
-		console.log({ form, emailInput });
 
 		emailInput.addEventListener("change", (e) => {
 			const email = e.target.value.toLowerCase();
@@ -63,11 +62,11 @@ if (typeof window !== "undefined") {
 		async function handleFormSubmit() {
 			try {
 				await sleep(2000);
-				console.log({ hash: window.BusaraEmailHash });
+
 				if (typeof window.BusaraEmailHash === "undefined") return false;
 
 				const hasInputs = form.getElementsByTagName("input").length > 0;
-				console.log({ hasInputs });
+
 				if (hasInputs) {
 					return false;
 				}
