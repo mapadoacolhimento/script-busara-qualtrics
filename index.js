@@ -39,7 +39,7 @@ if (typeof window !== "undefined") {
 
 		function addElement(link) {
 			try {
-				const dataKey = isProduction ? 399 : 399;
+				const dataKey = isProduction ? 240 : 399;
 				// create a new div element
 				const newLink = document.createElement("a");
 
