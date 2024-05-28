@@ -38,6 +38,8 @@ if (typeof window !== "undefined") {
 
 		function addElement(link) {
 			try {
+				const isProduction = !window.location.host.includes("staging");
+				const dataKey = isProduction ? 399 : 399;
 				// create a new div element
 				const newLink = document.createElement("a");
 
@@ -52,7 +54,7 @@ if (typeof window !== "undefined") {
 				newLink.setAttribute("href", link);
 
 				// add the newly created element and its content into the DOM
-				const currentSpan = document.querySelector("[data-key='399']");
+				const currentSpan = document.querySelector(`[data-key='${dataKey}']`);
 				currentSpan.insertAdjacentElement("beforebegin", newLink);
 			} catch (e) {
 				console.log(`addElement: ${e}`);
