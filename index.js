@@ -62,6 +62,7 @@ if (typeof window !== "undefined") {
 
 		async function handleFormSubmit() {
 			try {
+				await sleep(2000);
 				console.log({ hash: window.BusaraEmailHash });
 				if (typeof window.BusaraEmailHash === "undefined") return false;
 
