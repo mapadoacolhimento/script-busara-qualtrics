@@ -52,6 +52,7 @@ if (typeof window !== "undefined") {
 				newLink.appendChild(newContent);
 
 				newLink.setAttribute("href", link);
+				newLink.setAttribute("target", "_blank");
 
 				// add the newly created element and its content into the DOM
 				const currentSpan = document.querySelector(`[data-key='${dataKey}']`);
