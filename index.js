@@ -1,5 +1,7 @@
 import crypto from "crypto";
 import encryptData from "./src/encrypt";
+// import decryptData from "./src/decrypt";
+// import data from "./data.json";
 
 const sleep = (ms) =>
 	new Promise((r) => {
@@ -25,6 +27,7 @@ if (typeof window !== "undefined") {
 	window.addEventListener("DOMContentLoaded", () => {
 		const form = document.getElementById("widget-16850");
 		const emailInput = form.querySelector("input[type=email]");
+		const isProduction = !window.location.host.includes("staging");
 
 		emailInput.addEventListener("change", (e) => {
 			const email = e.target.value.toLowerCase();
@@ -34,34 +37,72 @@ if (typeof window !== "undefined") {
 
 		const submitBtn = form.querySelector("button");
 
+		function addElement(link) {
+			try {
+				const dataKey = isProduction ? 399 : 399;
+				// create a new div element
+				const newLink = document.createElement("a");
+
+				// and give it some content
+				const newContent = document.createTextNode(
+					"Clique aqui para acessar a pesquisa.",
+				);
+
+				// add the text node to the newly created link
+				newLink.appendChild(newContent);
+
+				newLink.setAttribute("href", link);
+
+				// add the newly created element and its content into the DOM
+				const currentSpan = document.querySelector(`[data-key='${dataKey}']`);
+				currentSpan.insertAdjacentElement("beforebegin", newLink);
+			} catch (e) {
+				console.log(`addElement: ${e}`);
+			}
+		}
+
 		async function handleFormSubmit() {
-			await sleep(5000);
+			try {
+				await sleep(2000);
 
-			if (typeof window.BusaraEmailHash === "undefined") return false;
+				if (typeof window.BusaraEmailHash === "undefined") return false;
 
-			const hasInputs = form.getElementsByTagName("input").length > 0;
+				const hasInputs = form.getElementsByTagName("input").length > 0;
 
-			if (hasInputs) {
+				if (hasInputs) {
+					return false;
+				}
+
+				const allText = form.querySelectorAll("span");
+				const thankUMsgs = [...allText].filter((thankUMsg) =>
+					thankUMsg.textContent.includes("Recebemos seu pedido de ajuda"),
+				);
+
+				if (thankUMsgs.length > 0) {
+					submitBtn.removeEventListener("click", handleFormSubmit);
+					const surveyLink = process.env.SURVEY_LINK;
+					const link = `${surveyLink}?user_id=${window.BusaraEmailHash}`;
+
+					addElement(link);
+					if (isProduction) {
+						await sleep(3000);
+						window.location.href = link;
+					}
+
+					return true;
+				}
+
+				return false;
+			} catch (e) {
+				console.log(`handleFormSubmit: ${e}`);
 				return false;
 			}
-
-			const allText = form.querySelectorAll("span");
-			const thankUMsgs = [...allText].filter((thankUMsg) =>
-				thankUMsg.textContent.includes("Recebemos seu pedido de ajuda"),
-			);
-
-			if (thankUMsgs.length > 0) {
-				submitBtn.removeEventListener("click", handleFormSubmit);
-				const surveyLink = process.env.SURVEY_LINK;
-				const link = `${surveyLink}?user_id=${window.BusaraEmailHash}`;
-				window.location.href = link;
-
-				return true;
-			}
-
-			return false;
 		}
 
 		submitBtn.addEventListener("click", handleFormSubmit);
 	});
 }
+
+// const decryptedEmails = data.map((hash) => decryptData(hash, key, iv));
+
+// console.log("res:", JSON.stringify(decryptedEmails));
