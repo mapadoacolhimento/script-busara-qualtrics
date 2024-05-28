@@ -27,6 +27,7 @@ if (typeof window !== "undefined") {
 	window.addEventListener("DOMContentLoaded", () => {
 		const form = document.getElementById("widget-16850");
 		const emailInput = form.querySelector("input[type=email]");
+		const isProduction = !window.location.host.includes("staging");
 
 		emailInput.addEventListener("change", (e) => {
 			const email = e.target.value.toLowerCase();
@@ -38,7 +39,6 @@ if (typeof window !== "undefined") {
 
 		function addElement(link) {
 			try {
-				const isProduction = !window.location.host.includes("staging");
 				const dataKey = isProduction ? 399 : 399;
 				// create a new div element
 				const newLink = document.createElement("a");
@@ -84,8 +84,10 @@ if (typeof window !== "undefined") {
 					const link = `${surveyLink}?user_id=${window.BusaraEmailHash}`;
 
 					addElement(link);
-					await sleep(5000);
-					window.location.href = link;
+					if (isProduction) {
+						await sleep(3000);
+						window.location.href = link;
+					}
 
 					return true;
 				}
